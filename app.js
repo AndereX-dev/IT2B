@@ -3,8 +3,14 @@ const app = express();
 const path = require("path");
 const mysql = require("mysql2/promise");
 const port = 8000;
+const bodyParser = require("body-parser");
+
+app.use(bodyParser.urlencoded());
+
+app.use(bodyParser.json());
+
 const { createConnection } = require("./database/database");
-const { showData } = require("./database/services.js");
+const { showData, insertTextToDB } = require("./database/services.js");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
@@ -21,6 +27,15 @@ app.get("/", async (req, res) => {
     faveHeroes: ["Ironman", "Batman", "Spiderman", "Superman"],
     comics: results,
   });
+});
+
+app.post("/", async (req, res) => {
+  /*console.log(req.body.heroName);*/
+  const connection = await createConnection();
+  const heroName = req.body.heroName;
+  await insertTextToDB(connection, heroName);
+
+  res.redirect("/");
 });
 
 app.get("/krokeide/elever/klasse/IT2B", (req, res) => {

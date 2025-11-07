@@ -3,4 +3,11 @@ async function showData(connection) {
   return results;
 }
 
-module.exports = { showData };
+async function insertTextToDB(connection, heroName) {
+  const [results] = await connection.query(
+    "INSERT INTO comic_books (ID, Released, Chapters, Status, Comic_Type) VALUES (?, ?, ?, ?, ?)",
+    [heroName, 2019, 169, "ongoing", "Manhwa"]
+  );
+  return results;
+}
+module.exports = { showData, insertTextToDB };
