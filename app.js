@@ -1,16 +1,21 @@
+//Importing necessary packages
 const express = require("express");
+const bodyParser = require("body-parser");
+
 const app = express();
+
+//We define what PORT our server will listen on
+const port = 8000;
 const path = require("path");
 const mysql = require("mysql2/promise");
-const port = 8000;
-const bodyParser = require("body-parser");
+
+//Importing our database connection function and services
+const { createConnection } = require("./database/database");
+const { showData, insertTextToDB } = require("./database/services.js");
 
 app.use(bodyParser.urlencoded());
 
 app.use(bodyParser.json());
-
-const { createConnection } = require("./database/database");
-const { showData, insertTextToDB } = require("./database/services.js");
 
 app.set("view engine", "ejs");
 app.use(express.static("public"));
