@@ -11,3 +11,18 @@ async function insertTextToDB(connection, heroName) {
   return results;
 }
 module.exports = { showData, insertTextToDB };
+
+async function userData(connection) {
+  const [results] = await connection.query("SELECT * FROM user");
+  return results;
+}
+
+async function insertUserDataToDB(connection, username, password) {
+  const [results] = await connection.query(
+    "INSERT INTO user (username, password) VALUES (?, ?)",
+    [username, password]
+  );
+  return results;
+}
+
+module.exports = { userData, insertUserDataToDB };

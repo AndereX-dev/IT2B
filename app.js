@@ -11,7 +11,11 @@ const mysql = require("mysql2/promise");
 
 //Importing our database connection function and services
 const { createConnection } = require("./database/database");
-const { showData, insertTextToDB } = require("./database/services.js");
+const {
+  showData,
+  insertTextToDB,
+  insertUserDataToDB,
+} = require("./database/services.js");
 
 app.use(bodyParser.urlencoded());
 
@@ -32,6 +36,23 @@ app.get("/", async (req, res) => {
     faveHeroes: ["Ironman", "Batman", "Spiderman", "Superman"],
     comics: results,
   });
+});
+app.get("/signup", async (req, res) => {
+  res.render("signup");
+});
+
+app.post("/signup", async (req, res) => {
+  /*const username = req.body;
+  const password = req.body;*/
+  const connection = await createConnection();
+  await insertUserDataToDB(
+    connection,
+    signupData.username,
+    signupData.password
+  );
+  const signupData = req.body;
+  console.log(signupData);
+  res.redirect("/");
 });
 
 app.post("/", async (req, res) => {
