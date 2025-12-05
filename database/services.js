@@ -19,8 +19,8 @@ async function userData(connection) {
 
 async function insertUserDataToDB(connection, username, password) {
   const [results] = await connection.query(
-    "INSERT INTO user (username, password) VALUES (?, ?)",
-    [username, password]
+    "INSERT INTO user (first_name, last_name, EMAIL, password) VALUES (?, ?, ?, ?)",
+    [first_name, last_name, email, password]
   );
   return results;
 }

@@ -47,7 +47,9 @@ app.post("/signup", async (req, res) => {
   const connection = await createConnection();
   await insertUserDataToDB(
     connection,
-    signupData.username,
+    signupData.first_name,
+    signupData.last_name,
+    signupData.email,
     signupData.password
   );
   const signupData = req.body;
