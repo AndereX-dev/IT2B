@@ -10,14 +10,13 @@ async function insertTextToDB(connection, heroName) {
   );
   return results;
 }
-module.exports = { showData, insertTextToDB };
 
 async function userData(connection) {
   const [results] = await connection.query("SELECT * FROM user");
   return results;
 }
 
-async function insertUserDataToDB(connection, username, password) {
+async function insertUserDataToDB(connection, email, password) {
   const [results] = await connection.query(
     "INSERT INTO user (first_name, last_name, EMAIL, password) VALUES (?, ?, ?, ?)",
     [first_name, last_name, email, password]
@@ -25,4 +24,29 @@ async function insertUserDataToDB(connection, username, password) {
   return results;
 }
 
-module.exports = { userData, insertUserDataToDB };
+async function insertNewUserToDB(connection, email, password) {
+  const [results] = await connection.query(
+    "INSERT INTO user (EMAIL, password) VALUES (?, ?)",
+    [email, password]
+  );
+  return results;
+}
+
+async function checkIfUsernameAndPasswordIsCorrect(connection, email) {
+  const [results] = await connection.query(
+    "SELECT * FROM user WHERE EMAIL = ? AND password = ?",
+    [email, password]
+  );
+  if (results.length === 0) {
+    return (finalResults = false);
+  }
+  return (finalResults = true);
+}
+
+module.exports = {
+  showData,
+  insertTextToDB,
+  userData,
+  insertUserDataToDB,
+  insertNewUserToDB,
+};

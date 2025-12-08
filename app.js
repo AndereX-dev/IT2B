@@ -66,6 +66,37 @@ app.post("/", async (req, res) => {
   res.redirect("/");
 });
 
+app.get("/signup", (req, res) => {
+  res.render("signup");
+});
+
+app.post("/signup", async (req, res) => {
+  const connection = await createConnection();
+  insertUserDataToDB(connection, FormData.email, FormData.password);
+  const FormData = req.body;
+  res.redirect("/signup");
+});
+
+app.get("/signin", async (req, res) => {
+  res.render("signIn");
+});
+
+app.post("/signin", async (req, res) => {
+  const connection = await createConnection();
+  const FormData = req.body;
+
+  if (
+    !(await checkIfUsernameAndPasswordIsCorrect(
+      connection,
+      FormData.email,
+      FormData.password
+    ))
+  ) {
+    res.redirect("/signin");
+  }
+  res.redirect("/dashboard");
+});
+
 app.get("/krokeide/elever/klasse/IT2B", (req, res) => {
   res.send("Hei dette er klasse IT2B ved Krokeide vgs");
 });
