@@ -49,4 +49,5 @@ module.exports = {
   userData,
   insertUserDataToDB,
   insertNewUserToDB,
+  checkIfUsernameAndPasswordIsCorrect,
 };
