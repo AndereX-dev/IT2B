@@ -7,7 +7,7 @@ const app = express();
 //We define what PORT our server will listen on
 const port = 8000;
 const path = require("path");
-const mysql = require("mysql2/promise");
+const mySql = require("mysql2/promise");
 
 //Importing our database connection function and services
 const { createConnection } = require("./database/database");
