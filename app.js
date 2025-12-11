@@ -10,7 +10,7 @@ const path = require("path");
 const mySql = require("mysql2/promise");
 
 //Importing our database connection function and services
-const { createConnection } = require("./database/database");
+const { createConnection } = require("./database/database.js");
 const {
   showData,
   insertTextToDB,
