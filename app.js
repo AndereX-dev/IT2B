@@ -37,6 +37,7 @@ app.get("/", async (req, res) => {
     comics: results,
   });
 });
+
 app.get("/signup", async (req, res) => {
   res.render("signup");
 });
@@ -54,15 +55,6 @@ app.post("/signup", async (req, res) => {
   );
   const signupData = req.body;
   console.log(signupData);
-  res.redirect("/");
-});
-
-app.post("/", async (req, res) => {
-  /*console.log(req.body.heroName);*/
-  const connection = await createConnection();
-  const heroName = req.body.heroName;
-  await insertTextToDB(connection, heroName);
-
   res.redirect("/");
 });
 
@@ -95,6 +87,15 @@ app.post("/signin", async (req, res) => {
     res.redirect("/signin");
   }
   res.redirect("/dashboard");
+});
+
+app.post("/", async (req, res) => {
+  /*console.log(req.body.heroName);*/
+  const connection = await createConnection();
+  const heroName = req.body.heroName;
+  await insertTextToDB(connection, heroName);
+
+  res.redirect("/");
 });
 
 app.get("/krokeide/elever/klasse/IT2B", (req, res) => {
